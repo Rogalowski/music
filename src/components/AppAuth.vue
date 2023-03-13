@@ -1,6 +1,4 @@
 <script>
-import App from '@/components/AppHeader.vue'
-
 export default {
   name: 'AppAuth'
 }

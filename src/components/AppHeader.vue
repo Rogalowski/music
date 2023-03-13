@@ -1,5 +1,19 @@
 <script>
-export default { name: 'AppHeader' }
+import { mapStores, mapState, mapWritableState } from 'pinia'
+import useModalStore from '@/stores/modal'
+export default {
+  name: 'AppHeader',
+  computed: {
+    ...mapStores(useModalStore),
+    ...mapWritableState(useModalStore, ['isOpen'])
+  },
+  methods: {
+    toggleAuthModal() {
+      this.modalStore.isOpen = !this.isOpen // to jest to samo
+      console.log(this.modalStore.isOpen)
+    }
+  }
+}
 </script>
 
 <template>
@@ -14,7 +28,9 @@ export default { name: 'AppHeader' }
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
           <li>
-            <a class="px-2 text-white" href="#">Login / Register</a>
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
+              >Login / Register</a
+            >
           </li>
           <li>
             <a class="px-2 text-white" href="#">Manage</a>
