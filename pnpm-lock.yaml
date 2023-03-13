@@ -17,6 +17,7 @@ specifiers:
   prettier: ^2.8.4
   start-server-and-test: ^2.0.0
   tailwindcss: ^3.2.7
+  vee-validate: ^4.8.1
   vite: ^4.1.4
   vitest: ^0.29.1
   vue: ^3.2.47
@@ -24,6 +25,7 @@ specifiers:
 
 dependencies:
   pinia: 2.0.33_vue@3.2.47
+  vee-validate: 4.8.1_vue@3.2.47
   vue: 3.2.47
   vue-router: 4.1.6_vue@3.2.47
 
@@ -3240,6 +3242,15 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
     dev: true
+
+  /vee-validate/4.8.1_vue@3.2.47:
+    resolution: {integrity: sha512-WjGeb3Mm3UoOriS8+45o/ZnUroQNwDBbc1Dhx24//TKh+D5rMIuPisVUjqT3wxduiKSbytzougrrZl9UHrTEdQ==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.47
+    dev: false
 
   /verror/1.10.0:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
