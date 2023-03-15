@@ -6,7 +6,7 @@ export default {
   name: 'AppAuth',
   data() {
     return {
-      tab: 'register'
+      tab: 'login'
     }
   },
   computed: {
