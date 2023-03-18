@@ -11,10 +11,13 @@ export default {
         name: 'required|min:3|max:100|alphaSpaces',
         email: 'required|min:3|max:22|email',
         age: 'required|min_value:18|max_value:100',
-        password: 'required|min:8|max:64',
+        password: 'required|min:8|max:64|excluded:password',
         confirm_password: 'confirmed:@password',
         country: 'required|excluded:Antarctica',
         tos: 'required'
+      },
+      userData:{
+        country: 'USA',
       }
     }
   },
@@ -119,7 +122,7 @@ export default {
           </form>
           <!-- Registration Form -->
           <vee-form v-show="tab === 'register'" :validation-schema="schema"
-            @submit="register">
+            @submit="register" :initial-values="userData">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -160,9 +163,18 @@ export default {
               <vee-field
                 name="password"
                 type="password"
+                :bails="false"
+                v-slot="{ field, errors }"
+              >
+              <input
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
+                v-bind="field"
               />
+              <div class="text-red-600" v-for="error in errors" :key="error">
+              {{ error }}
+              </div>
+              </vee-field>
               <ErrorMessage class="text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
@@ -174,7 +186,7 @@ export default {
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Confirm Password"
               />
-              <ErrorMessage class="text-red-600" name="confirm_password" />
+
             </div>
             <!-- Country -->
             <div class="mb-3">
