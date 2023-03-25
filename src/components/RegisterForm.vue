@@ -2,6 +2,9 @@
 import useModalStore from '@/stores/modal'
 import { mapState, mapWritableState } from 'pinia'
 // import { mapMutations, mapState } from 'vuex'
+import firebase from "@/includes/firebase"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: 'RegisterForm',
   data() {
@@ -35,9 +38,35 @@ export default {
       this.reg_alert_variant = "bg-blue-500"
       this.reg_alert_msg = "Please wait! Account is being created"
 
+
+    try{
+
+
+
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, values.email, values.password)
+  .then((userCredential) => {
+    // Signed in
+    const userCred = userCredential.user
+    console.log("userCred: ", userCred)
+    // ...
+  })
+
+
+      // const userCred =  firebase.auth().createUserWithEmailAndPassword(
+      //   values.auth, values.email, values.password
+      // )
+    } catch (error) {
+      this.reg_in_submission = false;
+      this.reg_alert_msg = 'bg-red-500'
+      this.reg_alert_msg = 'An unexpected error appeard'
+      return
+    }
+
       this.reg_alert_variant = "bg-green-500"
       this.reg_alert_msg = "Success! Account has been created"
-      console.log("values: ",values)
+      console.log("values: ", values)
+
     }
   }
 }
