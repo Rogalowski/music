@@ -10,7 +10,7 @@ export default {
   methods: {
     toggleAuthModal() {
       this.modalStore.isOpen = !this.isOpen // to jest to samo
-      console.log(this.modalStore.isOpen)
+      console.log("this.modalStore.isOpen ", this.modalStore.isOpen)
     }
   }
 }
