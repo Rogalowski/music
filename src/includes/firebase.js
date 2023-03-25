@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app'
-import 'firebase/auth'
+
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 

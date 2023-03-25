@@ -39,33 +39,23 @@ export default {
       this.reg_alert_msg = "Please wait! Account is being created"
 
 
-    try{
 
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          const userCred = userCredential.user
+          console.log("userCred: ", userCred)
+          this.reg_alert_variant = "bg-green-500"
+          this.reg_alert_msg = "Success! Account has been created"
+          console.log("values: ", values)
+        })
+        .catch((error) => {
+          this.reg_in_submission = false;
+          this.reg_alert_msg = 'bg-red-500'
+          this.reg_alert_msg = `${error.code}`
+          console.log("ERROR: ", error.message, error.code)
+      })
 
-
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, values.email, values.password)
-  .then((userCredential) => {
-    // Signed in
-    const userCred = userCredential.user
-    console.log("userCred: ", userCred)
-    // ...
-  })
-
-
-      // const userCred =  firebase.auth().createUserWithEmailAndPassword(
-      //   values.auth, values.email, values.password
-      // )
-    } catch (error) {
-      this.reg_in_submission = false;
-      this.reg_alert_msg = 'bg-red-500'
-      this.reg_alert_msg = 'An unexpected error appeard'
-      return
-    }
-
-      this.reg_alert_variant = "bg-green-500"
-      this.reg_alert_msg = "Success! Account has been created"
-      console.log("values: ", values)
 
     }
   }
