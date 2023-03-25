@@ -84,7 +84,7 @@ export default {
           </ul>
 
           <LoginForm v-if="tab === 'login'"/>
-  <RegisterForm v-else="tab === 'register'"  />
+  <RegisterForm v-else/>
 
         </div>
       </div>
