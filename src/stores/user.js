@@ -1,21 +1,35 @@
 import { defineStore } from 'pinia'
-import { usersCollection, auth, createUserWithEmailAndPassword } from '@/includes/firebase'
+import {
+  usersCollection,
+  auth,
+  createUserWithEmailAndPassword,
+  updateProfile
+} from '@/includes/firebase'
 
 export default defineStore('user', {
   state: () => ({
     userLoggedIn: false
   }),
   actions: {
-    async register(values) {
-      await createUserWithEmailAndPassword(auth, values.email, values.password)
+    register(values) {
+      createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
-          const userCred = userCredential.user
-          console.log('userCred: ', userCred)
+          let userCredi = userCredential.user
+          console.log('userCredi: ', userCredi)
 
-          this.reg_alert_variant = 'bg-green-500'
-          this.reg_alert_msg = 'Success! Account has been created'
-          console.log('values: ', values)
+          this.userLoggedIn = true
           console.log('this.userStore.userLoggedIn: ', this.userLoggedIn)
+
+          usersCollection.doc(userCredi.uid).set({
+            name: values.name,
+            email: values.email,
+            age: values.age,
+            country: values.country
+          })
+
+          updateProfile(userCredi, {
+            displayName: values.name
+          })
         })
         .catch((error) => {
           this.reg_in_submission = false
@@ -23,15 +37,6 @@ export default defineStore('user', {
           this.reg_alert_msg = `${error.code}`
           console.log('ERROR: ', error.message, error.code)
         })
-
-      await usersCollection.add({
-        name: values.name,
-        email: values.email,
-        age: values.age,
-        country: values.country
-      })
-
-      this.userLoggedIn = true
     }
   }
 })

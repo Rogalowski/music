@@ -3,7 +3,7 @@ import 'firebase/auth'
 import 'firebase/compat/firestore' // new database of firebase
 // import { getFirestore } from 'firebase/firestore' //1
 
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, updateProfile, createUserWithEmailAndPassword } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 
@@ -26,4 +26,4 @@ const auth = getAuth()
 const usersCollection = db.collection('users')
 
 // export { auth, db }
-export { db, auth, createUserWithEmailAndPassword, usersCollection }
+export { db, auth, updateProfile, createUserWithEmailAndPassword, usersCollection }
