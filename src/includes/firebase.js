@@ -20,9 +20,10 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
+const auth = getAuth()
 // const db = getFirestore(app) //1
 
 const usersCollection = db.collection('users')
 
 // export { auth, db }
-export { db, getAuth, createUserWithEmailAndPassword, usersCollection }
+export { db, auth, createUserWithEmailAndPassword, usersCollection }

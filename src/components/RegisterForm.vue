@@ -2,8 +2,8 @@
 import useModalStore from '@/stores/modal'
 // import { mapMutations, mapState } from 'vuex'
 // import firebase from "@/includes/firebase"
-import { usersCollection, getAuth, createUserWithEmailAndPassword } from "@/includes/firebase"
-import { mapState, mapWritableState } from 'pinia'
+
+import { mapState, mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 
 
@@ -33,52 +33,25 @@ export default {
       reg_alert_msg: "Please wait! Account is being created"
     }
   },
-  computed: {
-    ...mapWritableState(useUserStore, ["userLoggedIn"]),
-  },
   methods: {
-      async register(values) {
+    ...mapActions(useUserStore,  {
+      createUser: 'register'
+    }),
+
+    async register(values) {
       this.reg_show_alert = true
       this.reg_in_submission = true
       this.reg_alert_variant = "bg-blue-500"
       this.reg_alert_msg = "Please wait! Account is being created"
 
-
-      const auth = getAuth();
-      await createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then((userCredential) => {
-
-          const userCred = userCredential.user
-          console.log("userCred: ", userCred)
-          this.userLoggedIn = true;
-          this.reg_alert_variant = "bg-green-500"
-          this.reg_alert_msg = "Success! Account has been created"
-          console.log("values: ", values)
-          console.log("this.userStore.userLoggedIn: ", this.userLoggedIn )
-
-        })
-        .catch((error) => {
+      try {
+        await this.createUser(values)
+      } catch(error) {
           this.reg_in_submission = false;
           this.reg_alert_variant = 'bg-red-500'
           this.reg_alert_msg = `${error.code}`
           console.log("ERROR: ", error.message, error.code)
-
-      })
-      try {
-        usersCollection.add({
-            name: values.name,
-            email: values.email,
-            age: values.age,
-            country: values.country,
-          })
-        } catch(error){
-          this.reg_in_submission = false;
-          this.reg_alert_variant = 'bg-red-500'
-          this.reg_alert_msg = `${error.code}`
-          console.log("ERROR COLLECTION: ", error.message, error.code)
-
-        }
-
+      }
     }
   }
 }
