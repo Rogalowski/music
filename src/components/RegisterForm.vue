@@ -40,9 +40,9 @@ export default {
 
       register(values) {
         this.reg_show_alert = true
-      this.reg_in_submission = true
-      this.reg_alert_variant = "bg-blue-500"
-      this.reg_alert_msg = "Please wait! Account is being created"
+        this.reg_in_submission = true
+        this.reg_alert_variant = "bg-blue-500"
+        this.reg_alert_msg = "Please wait! Account is being created"
 
       try {
           this.createUser(values)

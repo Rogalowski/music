@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile
 } from '@/includes/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default defineStore('user', {
   state: () => ({
@@ -16,9 +17,6 @@ export default defineStore('user', {
         .then((userCredential) => {
           let userCredi = userCredential.user
           console.log('userCredi: ', userCredi)
-
-          this.userLoggedIn = true
-          console.log('this.userStore.userLoggedIn: ', this.userLoggedIn)
 
           usersCollection.doc(userCredi.uid).set({
             name: values.name,
@@ -37,6 +35,14 @@ export default defineStore('user', {
           this.reg_alert_msg = `${error.code}`
           console.log('ERROR: ', error.message, error.code)
         })
+      this.userLoggedIn = true
+      console.log('this.userStore.userLoggedIn: ', this.userLoggedIn)
+    },
+    async authenticate(values) {
+      await signInWithEmailAndPassword(auth, values.email, values.password)
+
+      console.log('signInWithEmailAndPassword: ', auth)
+      this.userLoggedIn = true
     }
   }
 })

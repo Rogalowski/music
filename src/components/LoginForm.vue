@@ -1,14 +1,14 @@
 <script>
-import useModalStore from '@/stores/modal'
-import { mapState, mapWritableState } from 'pinia'
-// import { mapMutations, mapState } from 'vuex'
+import { mapActions } from 'pinia'
+import useUserStore from "@/stores/user"
+
 export default {
   name: 'LoginForm',
   data() {
     return {
       loginSchema: {
         email: 'required|min:3|max:22|email',
-        password: 'required|min:8|max:64|excluded:password',
+        password: 'required|min:8|max:64|excluded:password'
   },
   login_in_submission: false, // If the registration form is in submission, we'll want to disable the form if the request is still processing.
   login_show_alert: false, // Initially, we will want to hide the alert box.
@@ -17,11 +17,27 @@ export default {
 }
   },
   methods: {
-    login(values) {
+    ...mapActions(useUserStore, ['authenticate']),
+    async login(values) {
       this.login_show_alert = true
       this.login_in_submission = true
       this.login_alert_variant = "bg-blue-500"
       this.login_alert_msg = "Please wait! We are logging you in"
+
+      console.log(
+        'authenticate values1: ',
+        this.authenticate(values)
+      )
+      try {
+      await this.authenticate(values)
+
+      } catch(error) {
+
+        this.login_in_submission = false
+        this.login_alert_variant = "bg-red-500"
+        this.login_alert_msg = "Invalid login, please try again!"
+        return
+      }
 
       this.login_alert_variant = "bg-green-500"
       this.login_alert_msg = "Success! You are logged in"
