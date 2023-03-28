@@ -42,7 +42,8 @@ export default {
       this.login_alert_variant = "bg-green-500"
       this.login_alert_msg = "Success! You are logged in"
 
-      console.log("values: ",values)
+      console.log("Login values: ",values)
+      window.location.reload()
     }
   }
     }

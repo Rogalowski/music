@@ -43,6 +43,11 @@ export default defineStore('user', {
 
       console.log('signInWithEmailAndPassword: ', auth)
       this.userLoggedIn = true
+    },
+    async signout() {
+      console.log(auth.signOut())
+      await auth.signOut()
+      this.userLoggedIn = false
     }
   }
 })
