@@ -37,7 +37,7 @@ export default {
 		...mapActions(useUserStore,  {
 			createUser: 'register'
 		}),
-
+			// async
 			register(values) {
 				this.reg_show_alert = true
 				this.reg_in_submission = true
@@ -45,18 +45,19 @@ export default {
 				this.reg_alert_msg = "Please wait! Account is being created"
 
 			try {
+				// await
 					this.createUser(values)
-					this.reg_alert_variant = 'bg-green-500'
-					this.reg_alert_msg = 'Success! Account has been created'
-					console.log('values: ', values)
+
 			} catch(error) {
 					this.reg_in_submission = false;
 					this.reg_alert_variant = 'bg-red-500'
 					this.reg_alert_msg = `${error.code}`
 					console.log("ERROR: ", error.message, error.code)
 			}
-			window.location.reload()
-
+			// window.location.reload()
+			this.reg_alert_variant = 'bg-green-500'
+			this.reg_alert_msg = 'Success! Account has been created'
+			console.log('values: ', values)
 		}
 	}
 }

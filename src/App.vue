@@ -26,7 +26,7 @@ export default {
 
 <template>
   <AppHeader></AppHeader>
-
+ <AppAuth/>
 <router-view>
 </router-view>
 
