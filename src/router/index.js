@@ -10,7 +10,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/manage',
+    path: '/manage-music',
     name: 'manage',
     component: ManageView
   },
@@ -18,12 +18,23 @@ const routes = [
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/manage',
+    redirect: '/manage-music'
+    // redirect: { name: 'manage' } // lepiej tego uzywac
+  },
+  {
+    path: '/:catchAll(.*)*',
+    redirect: { name: 'home' }
+    // redirect: { name: 'manage' } // lepiej tego uzywac
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  linkExactActiveClass: 'text-purple-500'
 })
 
 export default router
