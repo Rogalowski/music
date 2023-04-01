@@ -23,7 +23,8 @@ export default {
   <header id="header" class="bg-gray-700">
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
       <!-- App Name -->
-      <a class="text-white font-bold uppercase text-2xl mr-4" href="#">Music</a>
+      <router-link class="text-white font-bold uppercase text-2xl mr-4" to="/">
+        Music</router-link>
 
       <div class="flex flex-grow items-center">
         <!-- Primary Navigation -->
@@ -36,13 +37,17 @@ export default {
           </li>
           <template v-else >
             <li >
-            <a class="px-2 text-white" href="#">Manage</a>
+            <router-link class="px-2 text-white" href="/manage">Manage</router-link>
           </li>
           <li >
             <a class="px-2 text-white" @click.prevent="userStore.signout" href="#">Logout</a>
           </li>
-          </template>
 
+          </template>
+          <li >
+            <router-link class="text-white    mr-4" to="/about">
+        About</router-link>
+          </li>
         </ul>
       </div>
     </nav>
