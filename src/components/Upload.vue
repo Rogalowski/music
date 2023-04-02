@@ -5,7 +5,8 @@ export default {
     name: 'Upload',
     data() {
         return {
-            is_dragover: false
+            is_dragover: false,
+            uploads: []
         }
     },
     methods: {
@@ -17,7 +18,34 @@ export default {
                 if(file.type !== 'audio/mpeg')  return//mime type
                 const storageRef = storage.ref()  //storage bucket api firebase musicvue-4bd0f.appspot.com
                 const songsRef =  storageRef.child(`songs/${file.name}`)  //  musicvue-4bd0f.appspot.com/songs/filename.mp3
-                songsRef.put(file)
+                const task = songsRef.put(file)
+
+                const uploadIndex = this.uploads.push({
+                    task,
+                    current_progress: 0,
+                    name: file.name,
+                    variant: 'bg-purple-400',
+                    icon: 'fas fa-spinner fa-spin',
+                    text_class: '',
+                    notificaion: ''
+                }) -1
+
+                task.on('state_changed', (snapshot) => { //snapshot contains  info about upload file - upload files firebase
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes ) * 100
+                    this.uploads[uploadIndex].current_progress = progress
+                    // below I added sucess and fail upload action
+                }, (error) => {
+                    this.uploads[uploadIndex].variant = 'bg-red-400';
+                    this.uploads[uploadIndex].icon = 'fas fa-times';
+                    this.uploads[uploadIndex].text_class = 'text-red-400';
+                    this.uploads[uploadIndex].notification = `Error: ${error}`;
+                    console.log("error: ", error)
+                }, () => {
+                    this.uploads[uploadIndex].variant = 'bg-green-400';
+                    this.uploads[uploadIndex].icon = 'fas fa-check';
+                    this.uploads[uploadIndex].text_class = 'text-green-400';
+                    this.uploads[uploadIndex].notification = `File has been uploaded successfull`;
+                })
             })
         }
     }
@@ -53,32 +81,18 @@ export default {
               </div>
               <hr class="my-6" />
               <!-- Progess Bars -->
-              <div class="mb-4">
+              <div class="mb-4" v-for="upload in uploads" :key="upload.name">
                 <!-- File Name -->
-                <div class="font-bold text-sm">Just another song.mp3</div>
+                <div class="font-bold text-sm" :class="upload.text_class">
+                    <i :class="upload.icon"> </i> {{ upload.name }} <br>
+                    {{ upload.notification }}
+                </div>
                 <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
                   <!-- Inner Progress Bar -->
                   <div
                     class="transition-all progress-bar bg-blue-400"
-                    style="width: 75%"
-                  ></div>
-                </div>
-              </div>
-              <div class="mb-4">
-                <div class="font-bold text-sm">Just another song.mp3</div>
-                <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-                  <div
-                    class="transition-all progress-bar bg-blue-400"
-                    style="width: 35%"
-                  ></div>
-                </div>
-              </div>
-              <div class="mb-4">
-                <div class="font-bold text-sm">Just another song.mp3</div>
-                <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-                  <div
-                    class="transition-all progress-bar bg-blue-400"
-                    style="width: 55%"
+                    :class="upload.variant"
+                    :style="{width: upload.current_progress +'%'}"
                   ></div>
                 </div>
               </div>

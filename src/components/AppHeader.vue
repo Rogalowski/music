@@ -19,7 +19,7 @@ export default {
       console.log("this.$routert ", this.$router)
       // if (this.$route.name === 'manage') {
       if (this.$route.meta.requiresAuth) {
-        this.$router.push({name: 'home'})
+        this.$router.push({name: 'home', replace: true})
         // window.location.reload()
       }
     }
