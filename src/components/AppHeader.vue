@@ -18,8 +18,9 @@ export default {
       this.userStore.signout()
       console.log("this.$routert ", this.$router)
       // if (this.$route.name === 'manage') {
-      if (this.$route.meta.reqiresAuth) {
+      if (this.$route.meta.requiresAuth) {
         this.$router.push({name: 'home'})
+        // window.location.reload()
       }
     }
   }
