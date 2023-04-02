@@ -11,18 +11,23 @@ const routes = [
   },
   {
     path: '/manage-music',
+    // alias: '/manage',
     name: 'manage',
     component: ManageView
+  },
+  {
+    path: '/manage',
+    // redirect: '/manage-music'
+    redirect: { name: 'manage' }, // lepiej tego uzywac
+    beforeEnter: (to, from, next) => {
+      //Manage Route Guard
+      next()
+    }
   },
   {
     path: '/about',
     name: 'about',
     component: AboutView
-  },
-  {
-    path: '/manage',
-    redirect: '/manage-music'
-    // redirect: { name: 'manage' } // lepiej tego uzywac
   },
   {
     path: '/:catchAll(.*)*',
@@ -36,5 +41,9 @@ const router = createRouter({
   routes,
   linkExactActiveClass: 'text-purple-500'
 })
+
+router.beforeEach((to, from, next) => {
+  next()
+}) //checking auth user and let them to some site. Global Guard
 
 export default router
