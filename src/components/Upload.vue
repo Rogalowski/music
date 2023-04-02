@@ -1,5 +1,5 @@
 <script>
-import {storage} from '@/includes/firebase'
+import { storage, auth, songsCollection } from '@/includes/firebase'
 
 export default {
     name: 'Upload',
@@ -10,7 +10,7 @@ export default {
         }
     },
     methods: {
-        upload($event) {
+         upload($event) {
             this.is_dragover = false
             const files = [...$event.dataTransfer.files] // convert object to array
 
@@ -30,7 +30,7 @@ export default {
                     notificaion: ''
                 }) -1
 
-                task.on('state_changed', (snapshot) => { //snapshot contains  info about upload file - upload files firebase
+                 task.on('state_changed', (snapshot) => { //snapshot contains  info about upload file - upload files firebase
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes ) * 100
                     this.uploads[uploadIndex].current_progress = progress
                     // below I added sucess and fail upload action
@@ -40,7 +40,18 @@ export default {
                     this.uploads[uploadIndex].text_class = 'text-red-400';
                     this.uploads[uploadIndex].notification = `Error: ${error}`;
                     console.log("error: ", error)
-                }, () => {
+                }, async () => {
+                    const song = {
+                        uid: auth.currentUser.uid,
+                        display_name: auth.currentUser.displayName,
+                        originl_name: task.snapshot.ref.name,
+                        modified_name: task.snapshot.ref.name,
+                        genre: '',
+                        comment_count: 0,
+                    }
+                    song.url = await task.snapshot.ref.getDownloadURL()
+                    await songsCollection.add(song) //add will generate id, set will able to add custom id
+
                     this.uploads[uploadIndex].variant = 'bg-green-400';
                     this.uploads[uploadIndex].icon = 'fas fa-check';
                     this.uploads[uploadIndex].text_class = 'text-green-400';
