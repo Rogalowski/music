@@ -1,8 +1,8 @@
 <script>
 import { mapStores, mapState, mapWritableState } from 'pinia'
-
 import useModalStore from '@/stores/modal'
 import useUserStore from '@/stores/user'
+
 export default {
   name: 'AppHeader',
   computed: {
@@ -13,6 +13,14 @@ export default {
     toggleAuthModal() {
       this.modalStore.isOpen = !this.isOpen // to jest to samo
       console.log("this.modalStore.isOpen ", this.modalStore.isOpen)
+    },
+    signOut() { //redirect user after logout
+      this.userStore.signout()
+      console.log("this.$routert ", this.$router)
+      // if (this.$route.name === 'manage') {
+      if (this.$route.meta.reqiresAuth) {
+        this.$router.push({name: 'home'})
+      }
     }
   }
 }
@@ -43,7 +51,9 @@ export default {
             <router-link class="  px-2 text-white" to="/manage">Manage</router-link>
           </li>
           <li >
-            <a class="px-2 text-white" @click.prevent="userStore.signout" href="#">Logout</a>
+            <!-- <a class="px-2 text-white" @click.prevent="userStore.signout"  -->
+            <a class="px-2 text-white" @click.prevent="signOut"
+            href="#">Logout</a>
           </li>
 
           </template>

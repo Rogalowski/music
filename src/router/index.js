@@ -2,31 +2,35 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
 import ManageView from '@/views/ManageView.vue'
+import useUserStore from '@/stores/user'
 
 const routes = [
   {
-    path: '/',
     name: 'home',
+    path: '/',
     component: HomeView
   },
   {
+    name: 'manage',
     path: '/manage-music',
     // alias: '/manage',
-    name: 'manage',
-    component: ManageView
-  },
-  {
-    path: '/manage',
-    // redirect: '/manage-music'
-    redirect: { name: 'manage' }, // lepiej tego uzywac
-    beforeEnter: (to, from, next) => {
+    component: ManageView,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter(to, from, next) {
       //Manage Route Guard
       next()
     }
   },
   {
-    path: '/about',
+    path: '/manage',
+    // redirect: '/manage-music'
+    redirect: { name: 'manage' } // lepiej tego uzywac
+  },
+  {
     name: 'about',
+    path: '/about',
     component: AboutView
   },
   {
@@ -43,7 +47,20 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  next()
-}) //checking auth user and let them to some site. Global Guard
+  if (!to.meta.requiresAuth) {
+    next()
+    return
+  }
+  console.log('to.meta: ', to.meta)
+  const store = useUserStore()
+
+  if (store.userLoggedIn) {
+    next()
+  } else {
+    next({ name: 'home' })
+    // next() // non comon way, please use meta
+  }
+})
+//checking auth user and let them to some site. Global Guard
 
 export default router
