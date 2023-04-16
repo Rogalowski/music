@@ -43,6 +43,9 @@ export default { //beforeRoute Guard
     updateSong(i, values) {
       this.songs[i].modified_name = values.modified_name
       this.songs[i].genre = values.genre
+    },
+    removeSong(i) {
+      this.songs.splice(i, 1)
     }
   }
 }
@@ -74,6 +77,7 @@ export default { //beforeRoute Guard
               :song="song"
               :updateSong="updateSong"
               :index="i"
+              :removeSong="removeSong"
               >
               </composition-item>
             </div>
