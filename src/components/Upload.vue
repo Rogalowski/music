@@ -10,7 +10,7 @@ export default {
         }
     },
     methods: {
-         upload($event) {
+      upload($event) {
             this.is_dragover = false
             const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]
             // convert object to array (one is for click and choose file, second for drag and drop)
@@ -59,7 +59,18 @@ export default {
                     this.uploads[uploadIndex].notification = `File has been uploaded successfull`;
                 })
             })
-        }
+      },
+      cancelUploads() {
+        this.uploads.forEach((upload) => { // will cancel upload file after change page/component view
+        upload.task.cancel()
+      })
+      }
+
+    },
+    beforeUnmount() {
+      this.uploads.forEach((upload) => { // will cancel upload file after change page/component view
+        upload.task.cancel()
+      })
     }
 }
 </script>

@@ -3,7 +3,9 @@
 import AppUpload from '@/components/Upload.vue'
 export default { //beforeRoute Guard
   name: 'manage',
-  components: {AppUpload}
+  components: {
+    AppUpload
+  },
 
   //guard for some components to get need auth, better way is use meta
   // beforeRouteEnter(to, from, next) {
@@ -16,6 +18,10 @@ export default { //beforeRoute Guard
   //   }
   // }
 
+// beforeRouteLeave(to, from, next){ // will cancel upload file after change page/component view
+//   this.$refs.upload.cancelUploads()
+//   next()
+// }
 
 }
 </script>
@@ -27,7 +33,7 @@ export default { //beforeRoute Guard
     <section class="container mx-auto mt-6">
       <div class="md:grid md:grid-cols-3 md:gap-4">
         <div class="col-span-1">
-        <AppUpload></AppUpload>
+        <app-upload ref="upload"></app-upload>
         </div>
         <div class="col-span-2">
           <div
@@ -86,66 +92,6 @@ export default { //beforeRoute Guard
                       Go Back
                     </button>
                   </form>
-                </div>
-              </div>
-              <div class="border border-gray-200 p-3 mb-4 rounded">
-                <div>
-                  <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
-                  >
-                    <i class="fa fa-pencil-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="border border-gray-200 p-3 mb-4 rounded">
-                <div>
-                  <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
-                  >
-                    <i class="fa fa-pencil-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="border border-gray-200 p-3 mb-4 rounded">
-                <div>
-                  <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
-                  >
-                    <i class="fa fa-pencil-alt"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="border border-gray-200 p-3 mb-4 rounded">
-                <div>
-                  <h4 class="inline-block text-2xl font-bold">Song Name</h4>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
-                  >
-                    <i class="fa fa-pencil-alt"></i>
-                  </button>
                 </div>
               </div>
             </div>
