@@ -15,53 +15,110 @@
                   </button>
                 </div>
                 <div v-show="showForm">
-                  <form>
+                    <div class="font-bold text-white text-center p-4 mb-4"
+                    v-if="show_alert"
+                    :class="alert_variant"
+                    >
+                        {{ alert_message }}
+                    </div>
+                  <vee-form :validation-schema="schema" :initial-values="song"
+                  @submit="edit">
                     <div class="mb-3">
                       <label class="inline-block mb-2">Song Title</label>
-                      <input
+                      <!--  vee-field istead <input -->
+                      <vee-field
+                        name="modified_name"
                         type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                         placeholder="Enter Song Title"
                       />
+                      <ErrorMessage class="text-red-600" name="modified_name"/>
                     </div>
                     <div class="mb-3">
                       <label class="inline-block mb-2">Genre</label>
-                      <input
+                      <vee-field
+                        name="genre"
                         type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                         placeholder="Enter Genre"
                       />
+                      <ErrorMessage class="text-red-600" name="genre"/>
                     </div>
                     <button
                       type="submit"
                       class="py-1.5 px-3 rounded text-white bg-green-600"
+                      :disabled="in_submission"
                     >
                       Submit
                     </button>
                     <button
                       type="button"
                       class="py-1.5 px-3 rounded text-white bg-gray-600"
+                      :disabled="in_submission"
+                      @click="showForm=false"
                     >
                       Go Back
                     </button>
-                  </form>
+                  </vee-form>
                 </div>
               </div>
 </template>
 
 <script>
+import { songsCollection } from '@/includes/firebase'
 export default {
     name: 'CompositionItem',
     props: {
         song: {
             type: Object,
             required: true,
+        },
+        updateSong: {
+            type: Function,
+            required: true
+        },
+        index: {
+            type: Number,
+            required: true
         }
     },
     data() {
         return {
             showForm: false,
+            schema: {
+                modified_name: 'required',
+                genre: 'alphaSpaces',
+            },
+            in_submission: false,
+            show_alert: false,
+            alert_variant: 'bg-blue-500',
+            alert_message: 'Please wait! Updating song info',
         }
+    },
+
+    methods: {
+        async edit(values) {
+            this.in_submission = true
+            this.show_alert = true
+            this.alert_variant = 'bg-blue-500'
+            this.alert_message = 'Please wait! Updating song info'
+
+            try {
+                await songsCollection.doc(this.song.docID).update(values)
+
+            } catch (error) {
+                this.in_submission = false,
+                this.alert_variant = 'bg-red-500',
+                this.alert_message = 'Something went wrong!'
+            return
+            }
+
+            this.updateSong(this.index, values)
+
+            this.in_submission = false
+            this.alert_variant = 'bg-green-500'
+            this.alert_message = 'Success'
+        },
     }
 }
 </script>
