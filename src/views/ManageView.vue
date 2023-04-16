@@ -1,6 +1,7 @@
 <script>
 // import useUserStore from "@/stores/user"
 import AppUpload from '@/components/Upload.vue'
+import { songsCollection, auth } from '@/includes/firebase'
 export default { //beforeRoute Guard
   name: 'manage',
   components: {
@@ -18,11 +19,13 @@ export default { //beforeRoute Guard
   //   }
   // }
 
-// beforeRouteLeave(to, from, next){ // will cancel upload file after change page/component view
+// beforeRouteLeave(to, from, next){
 //   this.$refs.upload.cancelUploads()
 //   next()
 // }
-
+async created() {
+  const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+}
 }
 </script>
 

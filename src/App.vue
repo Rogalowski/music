@@ -1,6 +1,5 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue'
-import HomeView from '@/components/AppHeader.vue'
 import AppAuth from '@/components/AppAuth.vue'
 import { mapWritableState } from 'pinia'
 import useUserStore from "@/stores/user"
