@@ -66,7 +66,8 @@
 </template>
 
 <script>
-import { songsCollection, storage } from '@/includes/firebase'
+import { songsCollection } from '@/includes/firebase'
+import { getStorage, ref, deleteObject  } from 'firebase/storage'
 export default {
     name: 'CompositionItem',
     props: {
@@ -125,10 +126,17 @@ export default {
             this.alert_message = 'Success'
         },
         async deleteSong() {
-            const storageRef = storage.ref()
-            const songRef = storageRef.child(`songs/${this.song.original_name}`) //?? wrong path
+            const storage = getStorage()
+            const storageRef = ref(storage)
+            // const songRef = storageRef.child(`songs/${this.song.original_name}`) //?? wrong path
+            const songRef = ref(storage, `songs/${ this.song.originl_name }`)
 
-            await songRef.delete()
+            // await songRef.delete()
+            deleteObject(songRef).then(() => {
+              console.log("File deleted: ", songRef)
+            }).catch((error) => {
+              console.error("File not deleted, ERROR: ", error)
+            });
 
             await songsCollection.doc(this.song.docID).delete()
             this.removeSong(this.index)
