@@ -10,7 +10,16 @@ export default { //beforeRoute Guard
   },
   data() {
     return {
-      songs: []
+      songs: [],
+      unsavedFlag: false,
+    }
+  },
+  beforeRouteLeave(to, from, next) { // are you sure to leave manage page?
+    if(!this.unsavedFlag){
+      next()
+    } else{
+      const leave = confirm('You have unsaved changes. Are you sure you want to leave page?')
+      next(leave)
     }
   },
   //guard for some components to get need auth, better way is use meta
@@ -46,6 +55,9 @@ export default { //beforeRoute Guard
     },
     removeSong(i) {
       this.songs.splice(i, 1)
+    },
+    updateUnsavedFlag(value) {
+      this.unsavedFlag = value
     }
   }
 }
@@ -78,6 +90,7 @@ export default { //beforeRoute Guard
               :updateSong="updateSong"
               :index="i"
               :removeSong="removeSong"
+              :updateUnsavedFlag="updateUnsavedFlag"
               >
               </composition-item>
             </div>
