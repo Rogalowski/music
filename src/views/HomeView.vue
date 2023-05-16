@@ -12,7 +12,25 @@ export default {
     }
   },
   async created() {
-    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+   this.getSongs
+
+   window.addEventListener('scroll', this.handleScroll) //scrolling through offsetHeight page
+  },
+  beforeUnmount(){
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods:{
+    handleScroll() { // load more songs by scrolling
+      const { scrollTop, offsetHeight } = document.documentElement
+      const { innerHeight } = window
+      const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight
+
+      if (bottomOfWindow) {
+        console.log("bottomOfWindow")
+      }
+    },
+    async getSongs() {
+      const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
     snapshot.forEach(document => {
       const song = {
         ...document.data(),
@@ -23,6 +41,7 @@ export default {
         ...document.data(),
       })
     });
+    },
   },
   setup() {
 
