@@ -8,7 +8,8 @@ export default {
   },
   data() {
     return {
-      songs: []
+      songs: [],
+      maxPerPage: 2,
     }
   },
   async created() {
@@ -30,7 +31,11 @@ export default {
       }
     },
     async getSongs() {
-      const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+      const snapshot = await songsCollection
+        .orderBy('modified_name')
+        // .startAfter(lastDoc)
+        .limit(this.maxPerPage)
+        .where('uid', '==', auth.currentUser.uid).get()
     snapshot.forEach(document => {
       const song = {
         ...document.data(),
@@ -43,9 +48,39 @@ export default {
     });
     },
   },
-  setup() {
+  // async getSongs() {
+  //     if (this.pendingRequest) {
+  //       return
+  //     }
 
-  },
+  //     this.pendingRequest = true
+  //     let snapshot;
+
+  //     if (this.songs.length) {
+  //     const lastDoc = await songsCollection
+  //       // .doc(this.songs[this.songs.length - 1].docID)
+  //       .get()
+  //     const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid)
+  //       // .orderBy('modified_name')
+  //       // .startAfter(lastDoc)
+  //       // .limit(this.maxPerPage)
+  //       .get()
+  //     } else {
+  //     const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid)
+  //       // .orderBy('modified_name')
+  //       // .limit(this.maxPerPage)
+  //       .get()
+  //     }
+  //   snapshot.forEach(document => {
+  //     const song = {
+  //       ...document.data(),
+  //       docID: document.id,
+  //     }
+  //     this.songs.push({
+  //       docID: document.id,
+  //       ...document.data(),
+  //     })
+  //   }); },
 }
 </script>
 
