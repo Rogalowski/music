@@ -12,7 +12,7 @@ export default {
     }
   },
   async created() {
-   this.getSongs
+    this.getSongs()
 
    window.addEventListener('scroll', this.handleScroll) //scrolling through offsetHeight page
   },
