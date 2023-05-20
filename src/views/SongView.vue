@@ -12,6 +12,7 @@ export default {
             comment_alert_variant: 'bg-blue-500',
             comment_alert_message: 'Please wait! Your comment is being submitted',
             comments: [],
+            sort: '1',
             schema: {
                 comment: 'required|min:3',
             },
@@ -29,6 +30,14 @@ export default {
     },
     computed: {
       ...mapState(useUserStore, ["userLoggedIn"]),
+      sortedComments() {
+        return this.comments.slice().sort((a, b) => {
+          if(this.sort === '1') {
+            return new Date(b.datePosted) - new Date(a.datePosted)
+          }
+          return new Date(a.datePosted) - new Date(b.datePosted)
+        })
+      }, 
     },
     methods:{
         async addComment(values, {resetForm}) {
@@ -45,6 +54,8 @@ export default {
                 uid: auth.currentUser.uid,
             }
             await commentsCollection.add(comment)
+
+            this.getComments()
 
             this.comment_in_submission = false
             this.comment_alert_variant = 'bg-green-500'
@@ -130,7 +141,7 @@ export default {
             </button>
           </vee-form>
           <!-- Sort Comments -->
-          <select
+          <select v-model="sort"
             class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           >
             <option value="1">Latest</option>
@@ -142,7 +153,7 @@ export default {
     <!-- Comments -->
     <ul class="container mx-auto">
       <li
-        v-for="comment in comments"
+        v-for="comment in sortedComments"
         :key="comment.docID"
         class="p-6 bg-gray-50 border border-gray-200">
         <!-- Comment Author -->
