@@ -5,6 +5,10 @@ export default {
     data() {
         return {
             song: {},
+            comment_in_submission: false,
+            comment_show_alert: false,
+            comment_alert_variant: 'bg-blue-500',
+            comment_alert_message: 'Please wait! Your comment is being submitted',
             schema: {
                 comment: 'required|min:3',
             },
@@ -18,6 +22,14 @@ export default {
             return
         }
         this.song = docSnapshot.data()
+    },
+    methods:{
+        async addComment(values) {
+            this.comment_in_submission = true
+            this.comment_show_alert = true
+            this.comment_alert_variant = 'bg-blue-500'
+            this.comment_alert_message = 'Please wait! Your comment is being submitted'
+        }
     },
     setup() {
 
@@ -58,8 +70,13 @@ export default {
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
         </div>
         <div class="p-6">
-          <vee-form :validation-schema="schema">
-            <vee-field as="textarea" name="comment"
+            <div
+            class="text-white text-center font-bold p-4 mb-4"
+            v-if="comment_show_alert">
+            {{ comment_alert_message }}
+        </div>
+            <vee-form :validation-schema="schema">
+            <vee-field as="textarea" name="comment" @submit="addComment"
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
               placeholder="Your comment here..."
             ></vee-field>
@@ -67,6 +84,7 @@ export default {
             <button
               type="submit"
               class="py-1.5 px-3 rounded text-white bg-green-600 block"
+              :disabled="comment_in_submission"
             >
               Submit
             </button>
