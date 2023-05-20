@@ -1,5 +1,7 @@
 <script>
 import { songsCollection, auth, commentsCollection } from '@/includes/firebase'
+import { mapState } from 'pinia'
+import useUserStore from '@/stores/user'
 export default {
     name: 'SongView',
     data() {
@@ -22,6 +24,9 @@ export default {
             return
         }
         this.song = docSnapshot.data()
+    },
+    computed: {
+      ...mapState(useUserStore, ["userLoggedIn"]),
     },
     methods:{
         async addComment(values, {resetForm}) {
@@ -92,7 +97,9 @@ export default {
             >
             {{ comment_alert_message }}
         </div>
-            <vee-form :validation-schema="schema" @submit="addComment">
+            <vee-form :validation-schema="schema" @submit="addComment"
+                v-if="userLoggedIn"
+            >
             <vee-field
                 as="textarea"
                 name="comment"
