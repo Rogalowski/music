@@ -39,6 +39,14 @@ export default {
         })
       }, 
     },
+    watch: {
+      sort(newVal) {
+        this.$router.push({
+          name: 'sameroute'
+        }),
+      }
+      
+    },
     methods:{
         async addComment(values, {resetForm}) {
             this.comment_in_submission = true
