@@ -25,6 +25,10 @@ export default {
             this.$router.push({name: 'home'})
             return
         }
+        const { sort } = this.$route.query
+        // will remember sort value after refresh
+        this.sort = sort === '1' || sort === '2' ? sort : '1'
+
         this.song = docSnapshot.data()
         this.getComments()
     },
@@ -36,14 +40,19 @@ export default {
             return new Date(b.datePosted) - new Date(a.datePosted)
           }
           return new Date(a.datePosted) - new Date(b.datePosted)
-        })
+        },)
       }, 
     },
     watch: {
       sort(newVal) {
+        if (newVal === this.$route.query.sort) {
+          return
+        }
         this.$router.push({
-          name: 'sameroute'
-        }),
+          query: {
+            sort: newVal,
+          },
+        })
       }
       
     },
@@ -62,6 +71,11 @@ export default {
                 uid: auth.currentUser.uid,
             }
             await commentsCollection.add(comment)
+
+            this.song.comment_count += 1
+            await songsCollection.doc(this.$route.params.id).update({
+              comment_count: this.song.comment_count
+            },)
 
             this.getComments()
 
@@ -119,7 +133,7 @@ export default {
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
-          <span class="card-title">Comments (15)</span>
+          <span class="card-title">Comments: {{  song.comment_count }}</span>
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
         </div>
         <div class="p-6">
