@@ -9,13 +9,13 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBBxCKb8A--uc_vGRYtge_uqbMBGBpT2m4',
-  authDomain: 'musicvue-4bd0f.firebaseapp.com',
-  projectId: 'musicvue-4bd0f',
-  storageBucket: 'musicvue-4bd0f.appspot.com',
-  messagingSenderId: '455057842814',
-  appId: '1:455057842814:web:db085b8b88bb1a8891ae2f',
-  measurementId: 'G-Z3GNXXEL91'
+  apiKey: import.meta.env.VITE_VUE_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_VUE_APP_FIREBASE_AUTH_DOAMIN,
+  projectId: import.meta.env.VITE_VUE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_VUE_APP_FIREBASE_MESSENGING_SENDER_ID,
+  appId: import.meta.env.VITE_VUE_APP_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_VUE_APP_FIREBASE_MEASURMENT_ID
 }
 
 const app = firebase.initializeApp(firebaseConfig)
