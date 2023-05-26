@@ -21,19 +21,27 @@ export default {
             },
         }
     },
-    async created() {
-        const docSnapshot  = await songsCollection.doc(this.$route.params.id ).get()
-
-        if (!docSnapshot.exists) {
-            this.$router.push({name: 'home'})
+    // async created() {
+    async beforeRouteEnter(to, from, next) { // will load data quicker
+        // const docSnapshot  = await songsCollection.doc(this.$route.params.id ).get()
+        const docSnapshot  = await songsCollection.doc(to.params.id ).get()
+        
+        next((vm) => {
+          if (!docSnapshot.exists) {
+            vm.$router.push({name: 'home'})
             return
         }
-        const { sort } = this.$route.query
+        const { sort } = vm.$route.query
         // will remember sort value after refresh
-        this.sort = sort === '1' || sort === '2' ? sort : '1'
+        vm.sort = sort === '1' || sort === '2' ? sort : '1'
+        // this.sort = sort === '1' || sort === '2' ? sort : '1'
 
-        this.song = docSnapshot.data()
-        this.getComments()
+        vm.song = docSnapshot.data()
+        // this.song = docSnapshot.data()
+        vm.getComments()
+        // this.getComments()
+        })
+
     },
     computed: {
       ...mapState(useUserStore, ["userLoggedIn"]),
