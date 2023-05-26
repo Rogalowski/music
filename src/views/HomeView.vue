@@ -99,7 +99,7 @@ export default {
 <!-- Main Content -->
 <section class="container mx-auto">
   <div class="relative flex flex-col bg-white border border-gray-200 rounded">
-    <div v-icon 
+    <div v-icon="'headphones-alt'"
     class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
       <span class="card-title">Songs</span>
       <!-- Icon v-icon directive headphones -->
