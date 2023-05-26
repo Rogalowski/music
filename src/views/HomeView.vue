@@ -1,10 +1,15 @@
 <script>
 import { songsCollection, auth } from '@/includes/firebase'
 import AppSongItem from '@/components/SongItem.vue'
+import IconSecondary from '@/directives/icon-secondary'
+
 export default {
   name: 'HomeView',
   components: {
     AppSongItem
+  },
+  directives: {
+    'icon-secondary': IconSecondary
   },
   data() {
     return {
@@ -99,10 +104,11 @@ export default {
 <!-- Main Content -->
 <section class="container mx-auto">
   <div class="relative flex flex-col bg-white border border-gray-200 rounded">
-    <div v-icon.right.yellow="'headphones-alt'"
+    <div 
+    v-icon-secondary="{ icon: 'headphones-alt', right: true }"
     class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
       <span class="card-title">Songs</span>
-      <!-- Icon v-icon directive headphones -->
+      <!-- Icon v-icon directive headphones  v-icon.right.yellow="'headphones-alt'"--> 
       
       </div>
     <!-- Playlist -->
