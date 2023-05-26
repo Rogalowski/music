@@ -5,8 +5,8 @@ import 'firebase/compat/firestore' // new database of firebase
 import 'firebase/compat/storage'
 
 import { getAuth, updateProfile, createUserWithEmailAndPassword } from 'firebase/auth'
-import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
+import { initializeFirestore, CACHE_SIZE_UNLIMITED } from "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_VUE_APP_FIREBASE_API_KEY,
@@ -24,6 +24,13 @@ const db = firebase.firestore()
 const auth = getAuth()
 const storage = firebase.storage()
 // const db = getFirestore(app) //1
+// db.enablePresistance().catch((error) => {
+//   console.log(`Firebase presistnace error ${error.code}`)
+// }) 
+
+
+//caching data firebase workbox ?? firebase ver9
+// initializeFirestore(app, {localCache: persistentLocalCache(/*settings*/{})});
 
 const usersCollection = db.collection('users')
 const songsCollection = db.collection('songs')
