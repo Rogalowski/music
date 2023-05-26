@@ -27,6 +27,7 @@ specifiers:
   vue: ^3.2.47
   vue-i18n: '9'
   vue-router: ^4.1.6
+  workbox-window: ^6.5.4
 
 dependencies:
   '@vee-validate/rules': 4.8.3_vue@3.2.47
@@ -55,8 +56,9 @@ devDependencies:
   start-server-and-test: 2.0.0
   tailwindcss: 3.2.7_postcss@8.4.21
   vite: 4.1.4
-  vite-plugin-pwa: 0.15.1_vite@4.1.4
+  vite-plugin-pwa: 0.15.1_pchkumgzq6po4w4enhsumrku2u
   vitest: 0.29.2_jsdom@21.1.0
+  workbox-window: 6.5.4
 
 packages:
 
@@ -6044,10 +6046,11 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-pwa/0.15.1_vite@4.1.4:
+  /vite-plugin-pwa/0.15.1_pchkumgzq6po4w4enhsumrku2u:
     resolution: {integrity: sha512-lJVzEYda/Y9AfwxFzX0rV+QCQ2+WdBoEGtR1RBZKWxvrJ4NWEH1VZaHOMyzvRiYhWQsi7aFhewsp1CDvN/R1Og==}
     peerDependencies:
       vite: ^3.1.0 || ^4.0.0
+      workbox-window: ^6.5.4
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.12
