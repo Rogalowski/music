@@ -22,8 +22,8 @@ const app = firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
 const auth = getAuth()
-const storage = firebase.storage()
-// const db = getFirestore(app) //1
+const storage = firebase.storage() 
+
 // db.enablePresistance().catch((error) => {
 //   console.log(`Firebase presistnace error ${error.code}`)
 // }) 

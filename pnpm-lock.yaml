@@ -15,6 +15,7 @@ specifiers:
   howler: ^2.2.3
   install: ^0.13.0
   jsdom: ^21.1.0
+  lodash: ^4.17.21
   pinia: ^2.0.32
   postcss: ^8.4.21
   prettier: ^2.8.4
@@ -33,6 +34,7 @@ dependencies:
   '@vee-validate/rules': 4.8.3_vue@3.2.47
   firebase: 9.18.0
   howler: 2.2.3
+  lodash: 4.17.21
   pinia: 2.0.33_vue@3.2.47
   vee-validate: 4.8.1_vue@3.2.47
   vue: 3.2.47
@@ -4639,7 +4641,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols/4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
