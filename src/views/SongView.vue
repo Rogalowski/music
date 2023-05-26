@@ -37,6 +37,8 @@ export default {
     },
     computed: {
       ...mapState(useUserStore, ["userLoggedIn"]),
+      ...mapState(usePlayerStore, ["playing"]),
+
       sortedComments() {
         return this.comments.slice().sort((a, b) => {
           if(this.sort === '1') {
@@ -110,21 +112,23 @@ export default {
 
 <template>
     <!-- Music Header -->
-    <section class="w-full mb-8 py-14 text-center text-white relative">
+    <section class="relative w-full mb-8 text-center text-white py-14">
       <div
-        class="absolute inset-0 w-full h-full box-border bg-contain music-bg"
+        class="box-border absolute inset-0 w-full h-full bg-contain music-bg"
         style="background-image: url(/assets/img/song-header.png)"
-      ></div>
-      <div class="container mx-auto flex items-center">
+      >
+    >
+    </div>
+      <div class="container flex items-center mx-auto">
         <!-- Play/Pause Button -->
         <button
           type="button"
-          class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+          class="z-50 w-24 h-24 text-3xl text-black bg-white rounded-full focus:outline-none"
           @click.prevent="newSong(song)"
           >
-          <i class="fas fa-play"></i>
+          <i class="fa" :class="playing ? 'fa-pause' : 'fa-play' "> </i>
         </button>
-        <div class="z-50 text-left ml-8">
+        <div class="z-50 ml-8 text-left">
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modified_name }}</div>
           <div>{{ song.genre }}</div>
@@ -132,18 +136,18 @@ export default {
       </div>
     </section>
     <!-- Form -->
-    <section class="container mx-auto mt-6">
+    <section class="container mx-auto mt-6" id="comments">
       <div
-        class="bg-white rounded border border-gray-200 relative flex flex-col"
+        class="relative flex flex-col bg-white border border-gray-200 rounded"
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
           <span class="card-title">Comments: {{  song.comment_count }}</span>
-          <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
+          <i class="float-right text-2xl text-green-400 fa fa-comments"></i>
         </div>
         <div class="p-6">
             <div
-                class="text-white text-center font-bold p-4 mb-4"
+                class="p-4 mb-4 font-bold text-center text-white"
                 v-if="comment_show_alert"
                 :class="comment_alert_variant"
             >
@@ -182,7 +186,7 @@ export default {
       <li
         v-for="comment in sortedComments"
         :key="comment.docID"
-        class="p-6 bg-gray-50 border border-gray-200">
+        class="p-6 border border-gray-200 bg-gray-50">
         <!-- Comment Author -->
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>
