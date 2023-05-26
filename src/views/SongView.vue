@@ -132,7 +132,8 @@ export default {
         <div class="z-50 ml-8 text-left">
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modified_name }}</div>
-          <div>{{ song.genre }}</div>
+          <div>{{ song.genre ? song.genre : 'No genere' }}</div>
+          <div class="song-price"> {{  $n(1, "currency", "pl") }}</div>
         </div>
       </div>
     </section>

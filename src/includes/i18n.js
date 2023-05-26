@@ -10,4 +10,18 @@ export default createI18n({
         en,
         pl
     },
+    numberFormats: {
+        en: {
+            currency: {
+                style: "currency", 
+                currency: "USD"  //or time
+            }
+        },
+        pl: {
+            currency: {
+                style: "currency", 
+                currency: "PLN"  //or time
+            }
+        },
+    }
 })
