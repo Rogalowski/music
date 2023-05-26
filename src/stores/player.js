@@ -48,6 +48,20 @@ export default defineStore('player', {
             if(this.sound.playing()) {
                 requestAnimationFrame(this.progress)
             }
+        },
+        updateSeek(event) {
+            if (!this.sound.playing) {
+                return
+            }
+
+            const { x, width } = event.currentTarget.getBoundingClientRect()
+            // Document 2000, so Timeline will 1000, event.clientX=1000 ----> it is not reliable
+            const clickX = event.clientX - x
+            const percentage = clickX / width
+            const seconds = this.sound.duration() * percentage
+
+            this.sound.seek(seconds)
+            this.sound.once("seek", this.progress) // will listen event seek
         }
     },
     getters: {
