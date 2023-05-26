@@ -9,7 +9,7 @@ export default{
         ...mapActions(usePlayerStore, ["toggleAudio"])
     },
     computed: {
-        ...mapState(usePlayerStore, ["playing"])
+        ...mapState(usePlayerStore, ["playing", "duration", "seek"])
     },
 }
 </script>
@@ -26,11 +26,11 @@ export default{
       <!-- Play/Pause Button -->
       <button type="button" @click.prevent="toggleAudio" >
         <i class="text-xl text-gray-500 fa " 
-        :class="!playing ? 'fa-play' : 'fa-pause' ">
+        :class="playing ? 'fa-pause' : 'fa-play' ">
     </i>
       </button>
       <!-- Current Position -->
-      <div class="player-currenttime">00:00</div>
+      <div class="player-currenttime">{{ seek }}</div>
       <!-- Scrub Container  -->
       <div class="relative w-full h-2 bg-gray-200 rounded cursor-pointer">
         <!-- Player Ball -->
@@ -44,7 +44,7 @@ export default{
         ></span>
       </div>
       <!-- Duration -->
-      <div class="player-duration">03:06</div>
+      <div class="player-duration">{{ duration }}</div>
     </div>
   </div>
 </template>
