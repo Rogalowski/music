@@ -111,6 +111,7 @@ export default {
 </script>
 
 <template>
+  <main>
     <!-- Music Header -->
     <section class="relative w-full mb-8 text-center text-white py-14">
       <div
@@ -199,4 +200,5 @@ export default {
       </li>
 
     </ul>
+  </main>
 </template>

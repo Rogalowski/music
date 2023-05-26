@@ -28,10 +28,28 @@ export default {
 <template>
   <AppHeader></AppHeader>
   <AppAuth/>
-<router-view>
-</router-view>
+  <router-view v-slot="{ Component }"> <!-- make transitions on Components -->
+    <transition name="fade" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 
   <AppPlayer></AppPlayer>
 </template>
 
-<style scoped></style>
+
+<style>
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 0.5s linear;
+}
+
+.fade-leave-to {
+  transition: all 0s lienar;
+  opacity: 0;
+}
+</style>
+
