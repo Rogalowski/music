@@ -7,7 +7,10 @@ export default {
   name: 'AppHeader',
   computed: {
     ...mapStores(useModalStore, useUserStore),
-    ...mapWritableState(useModalStore, ['isOpen'])
+    ...mapWritableState(useModalStore, ['isOpen']),
+    currentLocale() {
+      return this.$i18n.locale === "pl" ? "Polski" : "English"
+    }
   },
   methods: {
     toggleAuthModal() {
@@ -22,6 +25,9 @@ export default {
         this.$router.push({name: 'home', replace: true})
         // window.location.reload()
       }
+    },
+    changeLocale() {
+      this.$i18n.locale = this.$i18n.locale === "pl" ? "en" : "pl"
     }
   }
 }
@@ -41,6 +47,7 @@ export default {
       <div class="flex items-center flex-grow">
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
+          
           <!-- Navigation Links -->
           <li v-if="!userStore.userLoggedIn ">
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
@@ -63,6 +70,13 @@ export default {
         About</router-link>
           </li>
         </ul>
+        <ul class="ml-auto">
+            <li>
+              <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
+                {{ currentLocale }}
+              </a>
+            </li>
+          </ul>
       </div>
     </nav>
   </header>
