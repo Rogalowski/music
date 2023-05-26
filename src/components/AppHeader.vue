@@ -1,5 +1,5 @@
 <script>
-import { mapStores, mapState, mapWritableState } from 'pinia'
+import { mapStores, mapWritableState } from 'pinia'
 import useModalStore from '@/stores/modal'
 import useUserStore from '@/stores/user'
 
@@ -30,15 +30,15 @@ export default {
 <template>
   <!-- Header -->
   <header id="header" class="bg-gray-700">
-    <nav class="container mx-auto flex justify-start items-center py-5 px-4">
+    <nav class="container flex items-center justify-start px-4 py-5 mx-auto">
       <!-- App Name -->
       <router-link
-      class="text-white font-bold uppercase text-2xl mr-4"
+      class="mr-4 text-2xl font-bold text-white uppercase"
       :to="{name: 'home', path: ''}"
       :exact-active-class="no-active">
         Music</router-link>
 
-      <div class="flex flex-grow items-center">
+      <div class="flex items-center flex-grow">
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
@@ -49,7 +49,7 @@ export default {
           </li>
           <template v-else >
             <li >
-            <router-link class="  px-2 text-white" to="/manage">Manage</router-link>
+            <router-link class="px-2 text-white " to="/manage">Manage</router-link>
           </li>
           <li >
             <!-- <a class="px-2 text-white" @click.prevent="userStore.signout"  -->
@@ -59,7 +59,7 @@ export default {
 
           </template>
           <li >
-            <router-link class="text-white    mr-4" to="/about">
+            <router-link class="mr-4 text-white" to="/about">
         About</router-link>
           </li>
         </ul>

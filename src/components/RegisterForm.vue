@@ -1,9 +1,9 @@
 <script>
-import useModalStore from '@/stores/modal'
+// import useModalStore from '@/stores/modal'
 // import { mapMutations, mapState } from 'vuex'
 // import firebase from "@/includes/firebase"
 
-import { mapState, mapActions } from 'pinia'
+import { mapActions } from 'pinia'
 import useUserStore from '@/stores/user'
 
 
@@ -66,7 +66,7 @@ export default {
 
 <template>
 					<!-- Registration Form -->
-					<div class="text-white text-center font-bold p-4 rounded mb-4"
+					<div class="p-4 mb-4 font-bold text-center text-white rounded"
 					v-if="reg_show_alert"
 					:class="reg_alert_variant">
 					{{  reg_alert_msg }}
@@ -156,13 +156,15 @@ export default {
 						</div>
 
 						<!-- TOS -->
-						<div class="mb-3 pl-6">
+						<div class="pl-6 mb-3">
 							<vee-field
 							name="tos"
 							type="checkbox"
 							value="1"
-							class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
-							<label class="inline-block">Accept terms of service</label>
+							class="float-left w-4 h-4 mt-1 -ml-6 rounded" />
+							<i18n-t keypath="register.accept" class="inline-block" tag="label">
+								<a href="#">{{ $t("register.tos") }}</a>
+							</i18n-t>
 						</div>
 						<ErrorMessage class="text-red-600" name="tos" />
 						<button

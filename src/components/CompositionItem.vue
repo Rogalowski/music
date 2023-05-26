@@ -1,22 +1,22 @@
 <template>
-                <div class="border border-gray-200 p-3 mb-4 rounded">
+                <div class="p-3 mb-4 border border-gray-200 rounded">
                 <div v-show="!showForm">
                   <h4 class="inline-block text-2xl font-bold">{{ song.modified_name }}</h4>
                   <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
+                    class="float-right px-2 py-1 ml-1 text-sm text-white bg-red-600 rounded"
                     @click="deleteSong"
                     >
                     <i class="fa fa-times"></i>
                   </button>
                   <button
-                    class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
+                    class="float-right px-2 py-1 ml-1 text-sm text-white bg-blue-600 rounded"
                     @click.prevent="showForm=!showForm"
                     >
                     <i class="fa fa-pencil-alt"></i>
                   </button>
                 </div>
                 <div v-show="showForm">
-                    <div class="font-bold text-white text-center p-4 mb-4"
+                    <div class="p-4 mb-4 font-bold text-center text-white"
                     v-if="show_alert"
                     :class="alert_variant"
                     >
@@ -133,7 +133,7 @@ export default {
         },
         async deleteSong() {
             const storage = getStorage()
-            const storageRef = ref(storage)
+            // const storageRef = ref(storage)
             // const songRef = storageRef.child(`songs/${this.song.original_name}`) //?? wrong path
             const songRef = ref(storage, `songs/${ this.song.originl_name }`)
 
