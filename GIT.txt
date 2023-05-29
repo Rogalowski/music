@@ -1,0 +1,64 @@
+git log --all
+git add .
+git rm --cached filename   - usuniecie plaiku z commita przed pushem
+Revert from pushed commit, single file: 
+git checkout  3de02d8a3 (MASTER ID) -- cand_gsn.xlsm 
+add the reverted file: git commit cand_gsn.xlsm: 
+commit the reverted file to your latest commit$ git commit --amend
+
+git commit -m "PCCANDI-3094 Change navigation according to EDS"
+git commit --amend
+git push --follow-tags origin HEAD:refs/for/master
+git fetch --all     --pobieranie do brancha z checkoutowanego ale nie merguje
+git pull --rebase     ---git pull does git fetch and git merge together 
+git pull origin master
+git pull origin master --rebase    - bezpiecznie powraca na mastera ze swoimi zmianami i aktualizuje od razu wszystko
+git reset --hard origin/master
+
+
+CHERRY PICK PRZEJSCIE NA COMMITA
+TEst?  git reset --hard  50c6510a8fb9d45b3501df7d6176b1bd1eb7c11a
+
+
+git pull origin master --rebase
+git reset origin/master
+git reset HEAD~1    - unstash undelivered commit 
+
+alias make='winpty make.exe'
+alias eclose='scripts/close_and_checkout_excel_docs.py'
+alias ekill='scripts/kill_all_excel_instances.bat'
+alias deliver='git push --follow-tags origin HEAD:refs/for/master'  
+alias ce='cd ~/Desktop/candi_dev/candi-epg'
+alias cc='scripts/close_and_checkout_excel_docs.py'
+alias deliver='git push --follow-tags origin HEAD:refs/for/master'
+alias kill='~/Desktop/candi_dev/candi-epg/scripts/kill_all_excel_instances.bat'
+alias amend='git commit --amend --no-edit'
+alias xls='python scripts/XlsUnit_compile_and_run.py'
+alias log='git log --oneline'
+alias test='make test-quick'
+alias mypy='make test-mypy'
+alias master="git checkout master"alias python='winpty python.exe' 
+alias candi2='source /c/Users/ZROGJAC/VENV/candivenv/Scripts/activate'
+alias candi-epg='source /c/Users/ZROGJAC/VENV/candi-epg/Scripts/activate'
+alias test-venv='source /c/Users/ZROGJAC/VENV/openpyxl/Scripts/activate'
+
+Logging to file
+    file_name=C:\Users\ervpeka\AppData\Local\Temp\epg_data\output_main.log
+Logging ExcelMonitorThread
+    file_name=C:\Users\ervpeka\AppData\Local\Temp\epg_data\output_excel_monitor.log
+
+PCCANDI-3109 Navigation fixes
+
+Toolse:
+python tools/formula_parser/formula_parser.py -f "=OR(TEST_A1, TEST_B1)" -r "new_test.txt" -wb "test.xlsm" -ws "first"
+
+
+
+TYPE SCRIPT:
+c:\Users\ZROGJAC\PROJECTS\candi\frontend\node_modules\.bin\tsc.cmd -p c:\Users\ZROGJAC\PROJECTS\candi\frontend\tsconfig.json  https://code.visualstudio.com/docs/editor/tasks#vscode
+
+pnpm eslint --fix ./test/excelparse.test.ts
+pnpm eslint --fix ./src/composables/parser/ParserLogic.ts
+pnpm typecheck
+tsc -p tsconfig.json
+pnpm build-stage
