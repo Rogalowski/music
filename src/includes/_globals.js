@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 
 //auto import components
 export default {
@@ -7,9 +8,9 @@ export default {
             eager: true,
         })
 
-        Objects.entries(baseComponents).forEach(([path, module]) => {
-            const componentName = _.upperFirst(
-                _.camelCase(
+        Object.entries(baseComponents).forEach(([path, module]) => {
+            const componentName = upperFirst(
+                camelCase(
                     path
                         .split("/")
                         .pop()
