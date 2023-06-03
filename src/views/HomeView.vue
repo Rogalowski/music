@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       songs: [],
-      maxPerPage: 2,
+      maxPerPage: 10,
     }
   },
   async created() {
