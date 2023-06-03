@@ -20,5 +20,6 @@ describe('SongItem.vue', () => {
         const compositionAuthor = wrapper.find('.text-gray-500')
 
         expect(compositionAuthor.text()).toBe(song.display_name)
+        expect(compositionAuthor.text() === song.display_name).toBe(true) // aviod boolean test, are not reliable
     })
 })
