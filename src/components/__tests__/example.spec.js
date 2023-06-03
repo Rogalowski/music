@@ -1,3 +1,5 @@
-import { test} from 'vitest'
+// import { test } from 'vitest'
 
-test()
+it("sanity test", () => {
+  expect(true).toBe(true)
+})
