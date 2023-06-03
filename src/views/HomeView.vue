@@ -88,10 +88,10 @@ export default {
     <div class="text-white main-header-content">
       <h1 class="mb-5 text-5xl font-bold">{{ $t("home.listen") }}</h1>
       <p class="w-full mx-auto md:w-8/12">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et dolor mollis, congue
-        augue non, venenatis elit. Nunc justo eros, suscipit ac aliquet imperdiet, venenatis et
-        sapien. Duis sed magna pulvinar, fringilla lorem eget, ullamcorper urna.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
       </p>
+      <p>For more visit:  <a href="https://github.com/Rogalowski">Github Rogalowski</a></p>
+        <p> or <a href="https://www.linkedin.com/in/jacek-rogowski/">Linked In Jacek Rogowski</a></p>
     </div>
   </div>
 
