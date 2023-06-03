@@ -4,16 +4,19 @@ import VeeValidatePlugin from './includes/validation'
 import App from './App.vue'
 import router from './router'
 import { auth } from './includes/firebase'
+import { registerSW } from "virtual:pwa-register"
+// import { GlobalComponents } from "./includes/_globals"
+import progressBar from './includes/progress-bar'
+import "nprogress/nprogress.css"
 
 import './assets/main.css'
 import './assets/base.css'
 import Icon from "./directives/icon"
 import i18n from './includes/i18n'
-import { registerSW } from "virtual:pwa-register"
-// import { GlobalComponents } from "./includes/_globals"
+
 
 registerSW({immediate: true})
-
+progressBar(router)
 let app
 
 auth.onAuthStateChanged(() => {
