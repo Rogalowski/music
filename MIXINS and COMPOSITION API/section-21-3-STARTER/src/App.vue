@@ -12,6 +12,7 @@
 
 <script>
 import { ref, watchEffect, toRefs, reactive, watch, computed, onMounted } from 'vue'
+import { useNumbers } from '@/hooks/number'
 export default {
   name: 'App',
   setup() {
@@ -24,22 +25,14 @@ export default {
       })
     })
 
-    let num = ref(0)
     const phrase = ref('')
     let reversePhrase = ref('')
-
-    function incerement() {
-      num.value++
-    }
-
-    const double = computed(() => {
-      return num.value * 2
-    })
 
     watch([phrase], ([newVal, OldVal]) => {
       reversePhrase.value = phrase.value.split('').reverse().join('')
     })
 
+    const { num, incerement, double } = useNumbers()
     return {
       num,
       incerement,
