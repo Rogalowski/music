@@ -2,6 +2,7 @@
   <div>
     <p>{{ num }} doubled: {{ double }}</p>
     <button @click="incerement">+1 num</button>
+    <button ref="btn">Button Ref</button>
     <p>
       <input type="text" v-model="phrase" />
     </p>
@@ -10,10 +11,19 @@
 </template>
 
 <script>
-import { ref, watchEffect, toRefs, reactive, watch, computed } from 'vue'
+import { ref, watchEffect, toRefs, reactive, watch, computed, onMounted } from 'vue'
 export default {
   name: 'App',
   setup() {
+    const btn = ref(null)
+    // this.$refs
+
+    onMounted(() => {
+      btn.value.addEventListener('click', () => {
+        console.log('btn clicked')
+      })
+    })
+
     let num = ref(0)
     const phrase = ref('')
     let reversePhrase = ref('')
@@ -33,9 +43,11 @@ export default {
     return {
       num,
       incerement,
+      // ...toRefs(user)
       phrase,
       reversePhrase,
-      double
+      double,
+      btn
     }
   }
 }
