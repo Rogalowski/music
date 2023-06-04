@@ -8,7 +8,7 @@ export default {
     <li
         :id="`song-id-${song.docID}`"
         :class="[`song-id-${song.docID}`, `<-----for-test-purpose`]"  
-        class="flex items-center justify-between p-3 pl-6 transition duration-300 cursor-pointer hover:bg-gray-50"
+        class="flex items-center justify-between p-3 pl-6 transition duration-300 cursor-pointer hover:bg-gray-50 cypress-e2e-test"
       >
       
         <div>

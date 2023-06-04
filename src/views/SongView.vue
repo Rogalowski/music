@@ -131,6 +131,7 @@ export default {
       <div class="container flex items-center mx-auto">
         <!-- Play/Pause Button -->
         <button
+        id="cypress-play-btn"
           type="button"
           class="z-50 w-24 h-24 text-3xl text-black bg-white rounded-full focus:outline-none"
           @click.prevent="newSong(song)"
