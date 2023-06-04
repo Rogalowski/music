@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Snapshots SongItem.vue > renderes correctly 1`] = `
+<li
+  class="song-id-abs <-----for-test-purpose flex items-center justify-between p-3 pl-6 transition duration-300 cursor-pointer hover:bg-gray-50"
+  id="song-id-abs"
+>
+  <div>
+    <router-link-stub
+      class="block font-bold text-gray-600"
+      custom="false"
+      to="[object Object]"
+    />
+    <span
+      class="text-sm text-gray-500"
+    >
+      test
+    </span>
+  </div>
+  <div
+    class="text-lg text-gray-600"
+  >
+    <router-link-stub
+      custom="true"
+      to="[object Object]"
+    />
+  </div>
+</li>
+`;
