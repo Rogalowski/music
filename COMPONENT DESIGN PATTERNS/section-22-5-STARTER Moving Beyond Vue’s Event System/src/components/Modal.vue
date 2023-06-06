@@ -20,7 +20,26 @@
 <script>
 export default {
   name: 'AppModal',
-  props: ['show'],
+  props: {
+    show: {
+      required: true
+    },
+    scrollable: {
+      default: false
+    }
+  },
+  watch: {
+    show: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && !this.scrollable) {
+          document.body.style.setProperty('overflow', 'hidden')
+        } else {
+          document.body.style.removeProperty('overflow')
+        }
+      }
+    }
+  },
   methods: {
     close() {
       this.$emit('hide')
