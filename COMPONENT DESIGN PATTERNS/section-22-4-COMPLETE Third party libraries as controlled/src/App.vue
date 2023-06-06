@@ -17,24 +17,24 @@
 </template>
 
 <script>
-import EmojiInput from "./components/EmojiInput.vue";
+import EmojiInput from './components/EmojiInput.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    EmojiInput,
+    EmojiInput
   },
   data() {
     return {
-      emoji: "",
-    };
+      emoji: ''
+    }
   },
   methods: {
     submit() {
-      console.log("Emoji: ", this.emoji);
-    },
-  },
-};
+      console.log('Emoji: ', this.emoji)
+    }
+  }
+}
 </script>
 
-<style src="bootstrap/dist/css/bootstrap.css"></style>
+<!-- <style src="bootstrap/dist/css/bootstrap.css"></style> -->
